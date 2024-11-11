@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Popis korisnika</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Popis korisnika</h1>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Ime</th>
-        <th>Prezime</th>
-    </tr>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstname}"></td>
-        <td th:text="${user.lastname}"></td>
-    </tr>
-</table>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+<div class="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-semibold text-center text-gray-700 mb-4">Popis korisnika</h1>
+
+    <table class="w-full text-left border-collapse">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="px-4 py-2 font-medium text-gray-600 border-b">ID</th>
+            <th class="px-4 py-2 font-medium text-gray-600 border-b">Ime</th>
+            <th class="px-4 py-2 font-medium text-gray-600 border-b">Prezime</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}" class="odd:bg-white even:bg-gray-50">
+            <td th:text="${user.id}" class="px-4 py-2 border-b"></td>
+            <td th:text="${user.firstname}" class="px-4 py-2 border-b"></td>
+            <td th:text="${user.lastname}" class="px-4 py-2 border-b"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
