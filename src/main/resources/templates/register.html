@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registriraj se</title>
+</head>
+<body>
+
+<h1>Registracija</h1>
+
+<form th:action="@{/register}" method="post">
+
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    <label for="firstname">Ime:</label><br>
+    <input type="text" id="firstname" name="firstname"><br><br>
+
+    <label for="lastname">Prezime:</label><br>
+    <input type="text" id="lastname" name="lastname"><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br><br>
+
+    <label for="password">Lozinka:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+
+    <input type="submit" value="Registriraj se">
+</form>
+
+</body>
+</html>
