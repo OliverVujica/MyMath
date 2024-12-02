@@ -16,6 +16,7 @@
             <th class="px-4 py-2 font-medium text-gray-600 border-b">ID</th>
             <th class="px-4 py-2 font-medium text-gray-600 border-b">Ime</th>
             <th class="px-4 py-2 font-medium text-gray-600 border-b">Prezime</th>
+            <th class="px-4 py-2 font-medium text-gray-600 border-b">Lozinka</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
             <td th:text="${user.id}" class="px-4 py-2 border-b"></td>
             <td th:text="${user.firstname}" class="px-4 py-2 border-b"></td>
             <td th:text="${user.lastname}" class="px-4 py-2 border-b"></td>
+            <td th:text="${user.password}" class="px-4 py-2 border-b"></td>
         </tr>
         </tbody>
     </table>
