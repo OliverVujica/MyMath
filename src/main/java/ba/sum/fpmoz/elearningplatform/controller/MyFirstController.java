@@ -3,6 +3,7 @@ package ba.sum.fpmoz.elearningplatform.controller;
 import ba.sum.fpmoz.elearningplatform.model.User;
 import ba.sum.fpmoz.elearningplatform.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ public class MyFirstController {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -28,6 +32,11 @@ public class MyFirstController {
         return "users";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/register")
     public String register() {
         return "register";
@@ -35,7 +44,8 @@ public class MyFirstController {
 
     @PostMapping("/register")
     public String registerNewUser(User user) {
-            this.usersRepository.save(user);
-            return "redirect:/users";
-        }
+        user.setPassword(this.encoder.encode(user.getPassword()));
+        this.usersRepository.save(user);
+        return "redirect:/users";
     }
+}
