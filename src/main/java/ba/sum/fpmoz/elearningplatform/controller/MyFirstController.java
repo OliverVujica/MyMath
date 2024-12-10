@@ -2,10 +2,12 @@ package ba.sum.fpmoz.elearningplatform.controller;
 
 import ba.sum.fpmoz.elearningplatform.model.User;
 import ba.sum.fpmoz.elearningplatform.repository.UsersRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -38,12 +40,18 @@ public class MyFirstController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        User user = new User();
+        model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerNewUser(User user) {
+    public String registerNewUser(@Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("user", user);
+            return "register";
+        }
         user.setPassword(this.encoder.encode(user.getPassword()));
         this.usersRepository.save(user);
         return "redirect:/users";
