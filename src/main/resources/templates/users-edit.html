@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Uredi korisnika</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+<div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+  <h1 class="text-2xl font-semibold text-center text-gray-700">Uredi korisnika</h1>
+
+  <form th:action="@{/users/edit}" th:object="${user}" method="post" class="space-y-4">
+    <input type="hidden" name="id" value="${user.id}" />
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="hidden" name="password" th:value="${user.password}" />
+
+    <div>
+      <label for="firstname" class="block text-sm font-medium text-gray-600">Ime:</label>
+      <input type="text" id="firstname" name="firstname" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" th:field="*{firstname}">
+      <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="text-red-500"></div>
+    </div>
+
+    <div>
+      <label for="lastname" class="block text-sm font-medium text-gray-600">Prezime:</label>
+      <input type="text" id="lastname" name="lastname" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" th:field="*{lastname}">
+      <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="text-red-500"></div>
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
+      <input type="text" id="email" name="email" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" th:field="*{email}">
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-500"></div>
+    </div>
+
+    <button type="submit" class="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+      Završi uređivanje
+    </button>
+
+  </form>
+</div>
+
+</body>
+</html>
