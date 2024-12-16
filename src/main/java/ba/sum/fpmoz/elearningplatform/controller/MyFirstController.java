@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MyFirstController {
@@ -33,6 +35,39 @@ public class MyFirstController {
         model.addAttribute("users", users);
         return "users";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        Optional<User> user = this.usersRepository.findById(id);
+        if (user.isPresent()) {
+            this.usersRepository.delete(user.get());
+        }
+        return "redirect:/users";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        Optional<User> user = this.usersRepository.findById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "users-edit";
+        }
+        return "redirect:/users";
+    }
+
+    @PostMapping("/users/edit")
+    public String editUser(User user, BindingResult result, Model model) {
+        Long id = (long) user.getId();
+        Optional<User> userOptional = this.usersRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User userFromDb = userOptional.get();
+            userFromDb.setFirstname(user.getFirstname());
+            userFromDb.setLastname(user.getLastname());
+            this.usersRepository.save(userFromDb);
+        }
+        return "redirect:/users";
+    }
+
 
     @GetMapping("/login")
     public String login() {

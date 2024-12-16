@@ -16,7 +16,7 @@
             <th class="px-4 py-2 font-medium text-gray-600 border-b">ID</th>
             <th class="px-4 py-2 font-medium text-gray-600 border-b">Ime</th>
             <th class="px-4 py-2 font-medium text-gray-600 border-b">Prezime</th>
-            <th class="px-4 py-2 font-medium text-gray-600 border-b">Lozinka</th>
+            <th class="px-4 py-2 font-medium text-gray-600 border-b">Akcije</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +24,14 @@
             <td th:text="${user.id}" class="px-4 py-2 border-b"></td>
             <td th:text="${user.firstname}" class="px-4 py-2 border-b"></td>
             <td th:text="${user.lastname}" class="px-4 py-2 border-b"></td>
-            <td th:text="${user.password}" class="px-4 py-2 border-b"></td>
+            <td>
+                <a th:href="@{'/delete/' + ${user.id}}" class="px-4 py-2 font-semibold text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    Pobrisi
+                </a>
+                <a th:href="@{'/edit/' + ${user.id}}" class="px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    Uredi
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
